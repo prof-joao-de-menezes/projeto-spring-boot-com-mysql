@@ -32,4 +32,18 @@ public class UsuarioController {
         return comandos.findAll();
         // SELECT * FROM usuario_entity;
     }
+
+    @PutMapping("/{id}")
+    public UsuarioEntity atualizarUsuario(
+            @PathVariable Integer id,
+            @RequestBody UsuarioEntity usuarioAtualizado
+    ){
+        // Procuando o usuário pelo ID na tabela no Banco de Dados
+        UsuarioEntity usuarioAtual = comandos.findById(id).orElseThrow(); // SELECT * FROM tabela WHERE id = 1;
+        // Atualizar o dado dentro da tabela com o valor novo
+        usuarioAtual.setNome(usuarioAtualizado.getNome());
+        usuarioAtual.setEmail(usuarioAtualizado.getEmail());
+        return  comandos.save(usuarioAtual);
+    }
+
 }
