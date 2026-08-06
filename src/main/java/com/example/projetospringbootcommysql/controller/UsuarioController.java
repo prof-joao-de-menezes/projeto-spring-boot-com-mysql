@@ -46,4 +46,16 @@ public class UsuarioController {
         return  comandos.save(usuarioAtual);
     }
 
+    @DeleteMapping("/{id}")
+    public String apagarUsuario(
+            @PathVariable Integer id
+    ){
+        // buscando usuario na tabela
+        UsuarioEntity pessoa = comandos.findById(id).orElseThrow();
+        String nome = pessoa.getNome();
+
+        comandos.deleteById(id); // apagando dentro do banco
+
+        return "Usuario "+nome+" deletado com sucesso!";
+    }
 }
